@@ -1,0 +1,23 @@
+	|--------------------------------|
+	|       HCC Challenge 2025       |
+	|  KÓDOLJ MINIATÛR MESTERMÛVET!  |
+	|                                |
+	|           A Te Neved           |
+	|            (C) 2025            |
+	|--------------------------------|
+
+&P=HL2	|ÐP -Platform designation (Recommended for the beginning.)
+&C=10	|ÐC - BASIC line starting numbering
+&I=10	|ÐI - BASIC line incrementing numbering
+
+	| Screen address 
+	SA=49153
+
+	| Used characters ASCII code (decimal)
+	CA=30
+	CB=31
+
+\loop	
+	fori=0to959:pokesa+i,ca+((int((i+6)/4)+int(i/20)+int((i+80)/160)+int(i/480))and1):next:goto\loop
+
+

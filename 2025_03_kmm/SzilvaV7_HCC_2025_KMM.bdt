@@ -1,0 +1,23 @@
+	|--------------------------------|
+	|       HCC Challenge 2025       |
+	|  KÓDOLJ MINIATÛR MESTERMÛVET!  |
+	|                                |
+	|           A Te Neved           |
+	|            (C) 2025            |
+	|--------------------------------|
+
+&P=HL2	|ĞP -Platform designation (Recommended for the beginning.)
+&C=2	|ĞC - BASIC line starting numbering
+&I=1	|ĞI - BASIC line incrementing numbering
+
+	| Screen address 
+	|SA=49153
+
+	| Used characters ASCII code (decimal)
+	|CA=30
+	|CB=31
+
+\loop	
+	fori=80to1039:poke49073+i,31-(int(i/4+.5)+int(i/20)+i/160+(i>559)and1):next:run
+
+
