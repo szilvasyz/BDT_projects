@@ -111,7 +111,7 @@ Mivel a kiszámolt SA, A, B, C, D és E változókat mindössze egyetlen helyen 
 
 A BASIC FOR ciklusának végén a NEXT utasításnál általában meg kell adni a ciklusváltozót. Sokszor viszont (itt is) elhagyható, ha a legbelső indított FOR ciklusra vonatkozik a NEXT. Esetünkben nincs is több ciklus, nem kell megadni a változót.
 
-### Kevésbé látványos programkurtítási lehetőségek
+### Kevésbé látványos programkurtítás
 
 Vannak olyan lehetőségek, amik nem feltétlenül jutnak eszünkbe egy BASIC program láttán, pedig az interpreter működéséből adódóan ezek is jelenthetnek helymegtakarítást.
 
@@ -157,7 +157,7 @@ Vegyük észre, hogy a karakterkód meghatározásánál 1 bites értékekkel v�
 
 Mivel a számolásokban szereplő 80 páros számúan osztható 20-szal és 4-gyel is, ezért ha a ciklust 80-nal "eltoljuk" azaz a kezdő- és végértékeket is ennyivel megnöveljük, akkor a 4-gyel és 20-szal számolt váltakozások helye és "fázisa" sem változik, viszont a 80-as eltolással számított váltásból az eltolást kiiktathatjuk. 
 
-Igaz, ennek az az ára, hogy a POKE-nál a képernyő kezdőcímét is le kell 80-nal csökkenteni, valamint egy másik következmény, hogy a képernyő közepét jelző, 480-as osztással kalkulált váltást is el kell tolnunk, az osztó itt is 80-nal nő. A ciklus kezdő- és végértékénél is sajnos 1-1 byte-ot vesztünk, 2 illetve 4 számjegyűvé válnak, de 5 byte a nyereség a 80-as eltolásnál, ahol a zárójelek és a -80 is elhagyhatóvá válik.
+Igaz, ennek az az ára, hogy a POKE-nál a képernyő kezdőcímét is le kell 80-nal csökkenteni, valamint egy másik következmény, hogy a képernyő közepét jelző, 480-as osztással kalkulált váltást is el kell tolnunk, az osztó itt 80-nal nő. A ciklus kezdő- és végértékénél is sajnos 1-1 byte-ot vesztünk, 2 illetve 4 számjegyűvé válnak, de 5 byte a nyereség a 80-as eltolásnál, ahol a zárójelek és a -80 is elhagyhatóvá válik.
 
 A fentieket beépítve a kódba a következő sort kapjuk:
 
@@ -165,7 +165,7 @@ A fentieket beépítve a kódba a következő sort kapjuk:
 
 ### Az egész aritmetika kihasználása
 
-A BASIC a logikai műveleteket, mint itt az AND egész számokon hajtja végre. Emiatt az operandusokat automatikusan átalakítja egésszé automatikusan az elhagyva a törtrészt. Mivel az általunk használt AND kifejezés egyik oldalán egy 4 tagú összeadás van, az egyik (tetszőleges) tagról elhagyhatjuk az egészrészt képző INT függvényt, az összegben megjelenő törtrész automatikusan figyelmen kívül lesz hagyva. A kialakult kód:
+A BASIC a logikai műveleteket, mint itt az AND egész számokon hajtja végre. Emiatt az operandusokat automatikusan átalakítja egésszé, elhagyva a törtrészt. Mivel az általunk használt AND kifejezés egyik oldalán egy 4 tagú összeadás van, az egyik (tetszőleges) tagról elhagyhatjuk az egészrészt képző INT függvényt, az összegben megjelenő törtrész automatikusan figyelmen kívül lesz hagyva. A kialakult kód:
 
     FORI=80TO1039:POKE49073+I,31-(INT((I+2)/4)+INT(I/20)+I/160+INT(I/560)AND1):NEXT:RUN
 
@@ -181,11 +181,11 @@ Az összeadás utolsó tagja az egész ciklus alatt egyszer vált értéket, a k
 
     FORI=80TO1039:POKE49073+I,31-(INT(I/4+.5)+INT(I/20)+I/160+(I>559)AND1):NEXT:RUN
 
-Sajnos ez a legutolsó módosítás már nem hoz további méretcsökkenést, mivel a BASIC belső tárolási mechanizmusából kifolyólag az INT utáni zárójel a függvény nevének része, emiatt a megmaradó zárójel az INT helyét foglalja el a memóriában, az osztás jele helyett pedig a kisebb reláció kerül oda, tehát a tárolási méret nem változik.
+Sajnos ez a legutolsó módosítás már nem hoz további méretcsökkenést, mivel a BASIC belső tárolási mechanizmusából kifolyólag az INT utáni zárójel a függvény nevének része, emiatt a megmaradó zárójel az INT helyét foglalja el a memóriában, az osztás jele helyett pedig a kisebb reláció jele kerül oda, tehát a tárolási méret nem változik.
 
 # Az elkészült program
 
-A fentebb leírt optimalizálások végrehajtása után az alábbi kód született meg, ami a feladatkiírásnak megfelelő képet állít elő. Természetesen nem zárom ki a további méretcsökkentések lehetőségét, esetleg teljesen más rajzolási módszerből kiindulva.
+A leírt optimalizálások végrehajtása után az alábbi kód született meg, ami a feladatkiírásnak megfelelő képet állít elő. Természetesen nem zárom ki a további méretcsökkentések lehetőségét, esetleg teljesen más rajzolási módszerből kiindulva.
 
     &P=HL2
     &C=1
